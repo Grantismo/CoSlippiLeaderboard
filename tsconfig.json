@@ -4,7 +4,7 @@
   "exclude": ["dist"],
 
   "compilerOptions": {
-    "jsx": "react",
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "module": "commonjs",

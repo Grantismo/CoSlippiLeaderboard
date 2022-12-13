@@ -1,4 +1,4 @@
-export const getPlayerData = async (connectCode: string) => {
+export const getPlayerData = async (connectCode: string, abortSignal: AbortSignal) => {
   const query = `fragment userProfilePage on User {
     displayName
     connectCode {
@@ -40,6 +40,7 @@ export const getPlayerData = async (connectCode: string) => {
   }`;
 
   const req = await fetch('https://gql-gateway-dot-slippi.uc.r.appspot.com/graphql', {
+    signal: abortSignal,
     headers: {
       'content-type': 'application/json',
     },

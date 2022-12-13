@@ -66,6 +66,11 @@ module.exports = {
         test: /\.(svg|png|jpg|gif|woff|woff2|otf|ttf|eot)$/,
         loader: 'file-loader',
       },
+      {
+        test: /\.css$/i,
+        include: path.resolve(__dirname, 'src'),
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+      },
     ],
   },
 
