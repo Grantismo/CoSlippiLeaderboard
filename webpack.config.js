@@ -51,6 +51,20 @@ module.exports = {
   resolve: {
     modules: [path.join(__dirname, './node_modules')],
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    fallback: {
+      path: require.resolve('path-browserify'),
+      crypto: require.resolve('crypto-browserify'),
+      https: require.resolve('https-browserify'),
+      stream: require.resolve('stream-browserify'),
+      os: require.resolve('os-browserify/browser'),
+      http: require.resolve('stream-http'),
+      util: require.resolve('util/'),
+      assert: require.resolve('assert/'),
+      child_process: false,
+      fs: false,
+      tls: false,
+      net: false,
+    },
   },
 
   module: {
@@ -71,11 +85,19 @@ module.exports = {
         include: path.resolve(__dirname, 'src'),
         use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
+      {
+        test: /node_modules\/https-proxy-agent\//,
+        use: 'null-loader',
+      },
     ],
   },
 
   plugins: [
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(mode) }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(mode),
+      },
+    }),
     new FaviconsWebpackPlugin({
       logo: path.join(__dirname, './favicon.png'),
       background: '#ffeeee',

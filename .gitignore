@@ -9,3 +9,4 @@ docs
 .stylelintcache
 dist
 .DS_Store
+*.swp
