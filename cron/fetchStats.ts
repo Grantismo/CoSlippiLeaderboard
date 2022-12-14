@@ -3,8 +3,11 @@ import { GoogleSpreadsheet } from 'google-spreadsheet';
 import creds from '../secrets/co-melee-77b97a2696c1.json';
 import * as syncFs from 'fs';
 import * as path from 'path';
+import util from 'util';
+
 import { exec } from 'child_process';
 const fs = syncFs.promises;
+const execPromise = util.promisify(exec);
 
 const getPlayerConnectCodes = async (): Promise<string[]> => {
   const doc = new GoogleSpreadsheet('1DPIFD0RUA3yjruregmFUbUJ7ccdOjVB2LBp0goHvL-A');
@@ -28,21 +31,28 @@ const getPlayers = async () => {
 }
 
 async function main() {
-  console.log('Starting player fetch.');
-  const players = await getPlayers();
-  console.log('Player fetch complete.');
-  // rename original to players-old
-  const newFile = path.join(__dirname, 'data/players-new.json')
-  const oldFile = path.join(__dirname, 'data/players-old.json')
-  const timestamp = path.join(__dirname, 'data/timestamp.json')
+  //console.log('Starting player fetch.');
+  //const players = await getPlayers();
+  //console.log('Player fetch complete.');
+  //// rename original to players-old
+  //const newFile = path.join(__dirname, 'data/players-new.json')
+  //const oldFile = path.join(__dirname, 'data/players-old.json')
+  //const timestamp = path.join(__dirname, 'data/timestamp.json')
 
-  await fs.rename(newFile, oldFile)
-  console.log('Renamed existing data file.');
-  await fs.writeFile(newFile, JSON.stringify(players));
-  await fs.writeFile(timestamp, JSON.stringify({updated: Date.now()}));
-  console.log('Wrote new data file and timestamp.');
-  console.log('Deploying.');
-  exec('npm run deploy');
+  //await fs.rename(newFile, oldFile)
+  //console.log('Renamed existing data file.');
+  //await fs.writeFile(newFile, JSON.stringify(players));
+  //await fs.writeFile(timestamp, JSON.stringify({updated: Date.now()}));
+  //console.log('Wrote new data file and timestamp.');
+  //console.log('Deploying.');
+  // if no current git changes
+  const { stdout, stderr } = await execPromise('git status --porcelain');
+  if(stdout || stderr) {
+    console.log('Pending git changes... aborting deploy');
+    return
+  }
+  await execPromise('npm run deploy');
+  console.log('Deploy complete.');
 }
 
 main();
