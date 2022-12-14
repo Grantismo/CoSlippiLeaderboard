@@ -13,22 +13,24 @@ export default function HomePage() {
     await doc.loadInfo(); // loads document properties and worksheets
     const sheet = doc.sheetsByIndex[0];
     const rows = (await sheet.getRows()).slice(1); // remove header row
-    return rows.map((r) => r._rawData[1])
+    return rows.map((r) => r._rawData[1]).filter(r => r !== '')
   };
 
   const getPlayers = async (ac: AbortController) => {
     const codes = await getPlayerConnectCodes()
     const allData = codes.map(code => getPlayerData(code, ac.signal))
-    const datas = await Promise.all(allData)
-    const unsortedPlayers = datas.map((data: any) => data.data.getConnectCode.user)
+    const results = await Promise.all(allData.map(p => p.catch(e => e)));
+    const validResults = results.filter(result => !(result instanceof Error));
+    const unsortedPlayers = validResults
+      .filter((data: any) => data?.data?.getConnectCode?.user)
+      .map((data: any) => data.data.getConnectCode.user);
     return unsortedPlayers.sort((p1, p2) =>
       p2.rankedNetplayProfile.ratingOrdinal - p1.rankedNetplayProfile.ratingOrdinal)
-    // sort by ranking
   }
 
   useEffect(() => {
     const ac = new AbortController()
-    getPlayers(ac).then((players) => setPlayers(players));
+    getPlayers(ac).then((p) => setPlayers(p));
     return () => ac.abort();
   }, []);
 
