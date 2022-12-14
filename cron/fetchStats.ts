@@ -51,7 +51,11 @@ async function main() {
     console.log('Pending git changes... aborting deploy');
     return
   }
-  await execPromise('npm run deploy');
+  const { stdout: stdout2, stderr: stderr2 } = await execPromise('npm run deploy');
+  console.log(stdout2);
+  if(stderr2) {
+    console.error(stderr2);
+  }
   console.log('Deploy complete.');
 }
 
