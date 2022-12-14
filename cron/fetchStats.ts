@@ -3,6 +3,7 @@ import { GoogleSpreadsheet } from 'google-spreadsheet';
 import creds from '../secrets/co-melee-77b97a2696c1.json';
 import * as syncFs from 'fs';
 import * as path from 'path';
+import { exec } from 'child_process';
 const fs = syncFs.promises;
 
 const getPlayerConnectCodes = async (): Promise<string[]> => {
@@ -40,6 +41,8 @@ async function main() {
   await fs.writeFile(newFile, JSON.stringify(players));
   await fs.writeFile(timestamp, JSON.stringify({updated: Date.now()}));
   console.log('Wrote new data file and timestamp.');
+  console.log('Deploying.');
+  exec('npm run deploy');
 }
 
 main();
