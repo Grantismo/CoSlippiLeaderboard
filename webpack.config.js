@@ -95,10 +95,10 @@ module.exports = {
 
   plugins: [
     new webpack.ProvidePlugin({
-        Buffer: ['buffer', 'Buffer'],
+      Buffer: ['buffer', 'Buffer'],
     }),
     new webpack.ProvidePlugin({
-        process: 'process/browser',
+      process: 'process/browser',
     }),
     new webpack.DefinePlugin({
       'process.env': {
@@ -106,7 +106,7 @@ module.exports = {
       },
     }),
     new FaviconsWebpackPlugin({
-      logo: path.join(__dirname, './favicon.png'),
+      logo: path.join(__dirname, './favicon.ico'),
       background: '#ffeeee',
       icons: {
         android: true,
