@@ -1,4 +1,6 @@
-export const getPlayerData = async (connectCode: string, abortSignal: AbortSignal) => {
+import { RateLimiter } from "limiter"
+
+export const getPlayerData = async (connectCode: string) => {
   const query = `fragment userProfilePage on User {
     displayName
     connectCode {
@@ -40,7 +42,6 @@ export const getPlayerData = async (connectCode: string, abortSignal: AbortSigna
   }`;
 
   const req = await fetch('https://gql-gateway-dot-slippi.uc.r.appspot.com/graphql', {
-    signal: abortSignal,
     headers: {
       'content-type': 'application/json',
     },
@@ -53,3 +54,11 @@ export const getPlayerData = async (connectCode: string, abortSignal: AbortSigna
   });
   return req.json();
 };
+
+// limit to 1 QPS
+const limiter = new RateLimiter({tokensPerInterval: 1, interval: 'second'})
+
+export const getPlayerDataThrottled = async (connectCode: string) => {
+  const remainingRequests = await limiter.removeTokens(1);
+  return getPlayerData(connectCode)
+}

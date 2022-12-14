@@ -1,44 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleSpreadsheet } from 'google-spreadsheet';
-import { getPlayerData } from '../../../lib/slippi';
 import { Table } from '../../Table';
-import creds from '../../../../secrets/co-melee-77b97a2696c1.json';
+import { Player } from '../../player'
+import playersOld from '../../../../cron/data/players-old.json';
+import playersNew from '../../../../cron/data/players-new.json';
+import timestamp from '../../../../cron/data/timestamp.json';
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime' // import plugin
+dayjs.extend(relativeTime)
+
 
 export default function HomePage() {
-  const [players, setPlayers] = useState([]);
-
-  const getPlayerConnectCodes = async (): Promise<string[]> => {
-    const doc = new GoogleSpreadsheet('1DPIFD0RUA3yjruregmFUbUJ7ccdOjVB2LBp0goHvL-A');
-    await doc.useServiceAccountAuth(creds);
-    await doc.loadInfo(); // loads document properties and worksheets
-    const sheet = doc.sheetsByIndex[0];
-    const rows = (await sheet.getRows()).slice(1); // remove header row
-    return [...new Set(rows.map((r) => r._rawData[1]).filter(r => r !== ''))] as string[]
-  };
-
-  const getPlayers = async (ac: AbortController) => {
-    const codes = await getPlayerConnectCodes()
-    const allData = codes.map(code => getPlayerData(code, ac.signal))
-    const results = await Promise.all(allData.map(p => p.catch(e => e)));
-    const validResults = results.filter(result => !(result instanceof Error));
-    const unsortedPlayers = validResults
-      .filter((data: any) => data?.data?.getConnectCode?.user)
-      .map((data: any) => data.data.getConnectCode.user);
-    return unsortedPlayers.sort((p1, p2) =>
-      p2.rankedNetplayProfile.ratingOrdinal - p1.rankedNetplayProfile.ratingOrdinal)
-  }
-
-  useEffect(() => {
-    const ac = new AbortController()
-    getPlayers(ac).then((p) => setPlayers(p));
-    return () => ac.abort();
-  }, []);
+  // TODO(diff changes and show in the ui)
+  const players = playersNew;
+  const updatedAt = dayjs(timestamp.updated);
 
   return (
     <div className="flex flex-col items-center h-screen p-8">
       <h1 className="text-3xl m-4">
         Colorado Ranked Slippi Leaderboard
       </h1>
+      <div className="p-1"> Updated {updatedAt.fromNow()}</div>
       <Table players={players} />
     </div>
   );
