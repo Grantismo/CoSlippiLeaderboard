@@ -31,27 +31,29 @@ const getPlayers = async () => {
 }
 
 async function main() {
-  //console.log('Starting player fetch.');
-  //const players = await getPlayers();
-  //console.log('Player fetch complete.');
-  //// rename original to players-old
-  //const newFile = path.join(__dirname, 'data/players-new.json')
-  //const oldFile = path.join(__dirname, 'data/players-old.json')
-  //const timestamp = path.join(__dirname, 'data/timestamp.json')
+  console.log('Starting player fetch.');
+  const players = await getPlayers();
+  console.log('Player fetch complete.');
+  // rename original to players-old
+  const newFile = path.join(__dirname, 'data/players-new.json')
+  const oldFile = path.join(__dirname, 'data/players-old.json')
+  const timestamp = path.join(__dirname, 'data/timestamp.json')
 
-  //await fs.rename(newFile, oldFile)
-  //console.log('Renamed existing data file.');
-  //await fs.writeFile(newFile, JSON.stringify(players));
-  //await fs.writeFile(timestamp, JSON.stringify({updated: Date.now()}));
-  //console.log('Wrote new data file and timestamp.');
-  //console.log('Deploying.');
+  await fs.rename(newFile, oldFile)
+  console.log('Renamed existing data file.');
+  await fs.writeFile(newFile, JSON.stringify(players));
+  await fs.writeFile(timestamp, JSON.stringify({updated: Date.now()}));
+  console.log('Wrote new data file and timestamp.');
+  console.log('Deploying.');
+  const rootDir = path.normalize(path.join(__dirname, '..'))
+  console.log(rootDir)
   // if no current git changes
-  const { stdout, stderr } = await execPromise('git status --porcelain');
+  const { stdout, stderr } = await execPromise(`git -C ${rootDir} status --porcelain`);
   if(stdout || stderr) {
     console.log('Pending git changes... aborting deploy');
     return
   }
-  const { stdout: stdout2, stderr: stderr2 } = await execPromise('npm run deploy');
+  const { stdout: stdout2, stderr: stderr2 } = await execPromise(`npm run --prefix ${rootDir} deploy`);
   console.log(stdout2);
   if(stderr2) {
     console.error(stderr2);
