@@ -7,7 +7,7 @@ interface Props {
 
 export function Table({ players }: Props) {
   const th = (text) => {
-    return <th className="text-sm font-medium text-white px-6 py-4">{text}</th>
+    return <th className="text-sm font-medium text-white md:px-6 md:py-4 px-3 py-3">{text}</th>
   }
   return (
     <>

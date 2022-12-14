@@ -13,7 +13,7 @@ export default function HomePage() {
     await doc.loadInfo(); // loads document properties and worksheets
     const sheet = doc.sheetsByIndex[0];
     const rows = (await sheet.getRows()).slice(1); // remove header row
-    return rows.map((r) => r._rawData[1]).filter(r => r !== '')
+    return rows.map((r) => r._rawData[1]).filter(r => r !== '').slice(0,1)
   };
 
   const getPlayers = async (ac: AbortController) => {
