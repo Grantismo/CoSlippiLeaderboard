@@ -9,5 +9,5 @@ module.exports = {
 
   // add repo path for username.github.io/repoPath for react router to recognize paths,
   // use only when deployed to github.io, leave as null for deployments with custom domains
-  repoPath: '/',
+  repoPath: 'https://grantismo.github.io/CoSlippiLeaderboard/',
 };

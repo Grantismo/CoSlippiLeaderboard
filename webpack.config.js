@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const CnameWebpackPlugin = require('cname-webpack-plugin');
 const settings = require('./settings');
 
@@ -105,23 +104,8 @@ module.exports = {
         NODE_ENV: JSON.stringify(mode),
       },
     }),
-    new FaviconsWebpackPlugin({
-      logo: path.join(__dirname, './favicon.png'),
-      publicPath: '.',
-			icons: {
-        android: true,
-        appleIcon: false,
-        appleStartup: false,
-        coast: false,
-        favicons: true,
-        firefox: false,
-        opengraph: false,
-        twitter: false,
-        yandex: false,
-        windows: false,
-      },
-    }),
     new HtmlWebpackPlugin({
+      favicon: path.join(__dirname, './favicon.png'),
       templateContent: ({ htmlWebpackPlugin }) => `
         <!DOCTYPE html>
         <html>
