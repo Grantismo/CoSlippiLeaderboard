@@ -2,30 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { getPlayerData } from '../../../lib/slippi';
 import { Table } from '../../Table';
+import creds from '../../../../secrets/co-melee-77b97a2696c1.json';
 
 export default function HomePage() {
   const [players, setPlayers] = useState([]);
 
-  const getSheetData = async () => {
-    const doc = new GoogleSpreadsheet('https://docs.google.com/spreadsheets/d/1DPIFD0RUA3yjruregmFUbUJ7ccdOjVB2LBp0goHvL-A/edit#gid=2116982216');
-    await doc.useServiceAccountAuth({
-      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      private_key: process.env.GOOGLE_PRIVATE_KEY,
-    });
+  const getPlayerConnectCodes = async () => {
+    const doc = new GoogleSpreadsheet('1DPIFD0RUA3yjruregmFUbUJ7ccdOjVB2LBp0goHvL-A');
+    await doc.useServiceAccountAuth(creds);
     await doc.loadInfo(); // loads document properties and worksheets
-    return doc;
+    const sheet = doc.sheetsByIndex[0];
+    const rows = (await sheet.getRows()).slice(1); // remove header row
+    return rows.map((r) => r._rawData[1])
   };
+
+  const getPlayers = async (ac: AbortController) => {
+    const codes = await getPlayerConnectCodes()
+    const allData = codes.map(code => getPlayerData(code, ac.signal))
+    const datas = await Promise.all(allData)
+    const unsortedPlayers = datas.map((data: any) => data.data.getConnectCode.user)
+    return unsortedPlayers.sort((p1, p2) =>
+      p2.rankedNetplayProfile.ratingOrdinal - p1.rankedNetplayProfile.ratingOrdinal)
+    // sort by ranking
+  }
 
   useEffect(() => {
     const ac = new AbortController()
-    getSheetData().then((data) => {
-      debugger;
-    })
-    Promise.all([getPlayerData('BLRP#745', ac.signal)]).then(
-      (datas) => {
-        setPlayers(datas.map(data => data.data.getConnectCode.user));
-      }
-    ).catch(ex => console.error(ex));
+    getPlayers(ac).then((players) => setPlayers(players));
     return () => ac.abort();
   }, []);
 

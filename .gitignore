@@ -10,3 +10,4 @@ docs
 dist
 .DS_Store
 *.swp
+secrets/*

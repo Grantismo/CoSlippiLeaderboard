@@ -58,6 +58,7 @@ module.exports = {
       stream: require.resolve('stream-browserify'),
       os: require.resolve('os-browserify/browser'),
       http: require.resolve('stream-http'),
+      buffer: require.resolve('buffer/'),
       util: require.resolve('util/'),
       assert: require.resolve('assert/'),
       child_process: false,
@@ -93,6 +94,12 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+    }),
+    new webpack.ProvidePlugin({
+        process: 'process/browser',
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(mode),
