@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from '../../Table';
 import { Player } from '../../player'
-import playersOld from '../../../../cron/data/players-old.json';
+//import playersOld from '../../../../cron/data/players-old.json';
 import playersNew from '../../../../cron/data/players-new.json';
 import timestamp from '../../../../cron/data/timestamp.json';
 import dayjs from 'dayjs'
