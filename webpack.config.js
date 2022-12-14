@@ -107,15 +107,15 @@ module.exports = {
     }),
     new FaviconsWebpackPlugin({
       logo: path.join(__dirname, './favicon.png'),
-      background: '#ffeeee',
-      icons: {
+      publicPath: '.',
+			icons: {
         android: true,
-        appleIcon: true,
+        appleIcon: false,
         appleStartup: false,
         coast: false,
         favicons: true,
         firefox: false,
-        opengraph: true,
+        opengraph: false,
         twitter: false,
         yandex: false,
         windows: false,

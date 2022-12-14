@@ -1,4 +1,5 @@
 {
+  "outDir": "./dist/",
   "plugins": [],
   "include": ["./"],
   "exclude": ["dist"],
