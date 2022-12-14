@@ -4,7 +4,6 @@ import HomePage from './routes/home/HomePage';
 import settings from '../../settings';
 
 export default function App() {
-  console.log({settings: settings.repoPath})
   return (
     <HashRouter basename={settings.repoPath}>
       <Switch>
