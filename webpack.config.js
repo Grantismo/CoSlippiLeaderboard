@@ -10,7 +10,6 @@ const entry = path.join(__dirname, './src/index.tsx');
 const port = 8262;
 const output = path.join(__dirname, './dist');
 const publicPath = mode === 'production' ? settings.repoPath || '/' : '/';
-console.log({publicPath})
 
 module.exports = {
   mode,
