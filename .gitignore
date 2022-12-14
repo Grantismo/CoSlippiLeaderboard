@@ -12,3 +12,4 @@ dist
 *.swp
 secrets/*
 cron/data/*
+cron/logs/*
