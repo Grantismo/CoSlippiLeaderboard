@@ -7,8 +7,19 @@ interface Props {
 }
 
 export function Row({ rank, player }: Props) {
+
+  const codeToUrlSlug = (code: string) => {
+    const parts = code.split('#')
+    return `https://slippi.gg/user/${parts[0].toLowerCase()}-${parts[1]}`
+  }
+
+  const onProfileClick = () => {
+    console.log('click');
+    window.open(codeToUrlSlug(player.connectCode.code), '_blank', 'noreferrer');
+  }
   return (
-    <tr className="bg-white border-b">
+    <tr className="bg-white border-b hover:bg-indigo-300"
+      onClick={onProfileClick}>
       <td className="text-2xl text-black px-6 py-4 whitespace-nowrap">
         #{rank}
       </td>
