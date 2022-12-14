@@ -33,6 +33,10 @@ const getPlayers = async () => {
 async function main() {
   console.log('Starting player fetch.');
   const players = await getPlayers();
+  if(!players.length) {
+    console.log('Error fethcing player data. Terminating.')
+    return
+  }
   console.log('Player fetch complete.');
   // rename original to players-old
   const newFile = path.join(__dirname, 'data/players-new.json')
