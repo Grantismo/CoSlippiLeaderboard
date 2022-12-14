@@ -7,13 +7,13 @@ import creds from '../../../../secrets/co-melee-77b97a2696c1.json';
 export default function HomePage() {
   const [players, setPlayers] = useState([]);
 
-  const getPlayerConnectCodes = async () => {
+  const getPlayerConnectCodes = async (): Promise<string[]> => {
     const doc = new GoogleSpreadsheet('1DPIFD0RUA3yjruregmFUbUJ7ccdOjVB2LBp0goHvL-A');
     await doc.useServiceAccountAuth(creds);
     await doc.loadInfo(); // loads document properties and worksheets
     const sheet = doc.sheetsByIndex[0];
     const rows = (await sheet.getRows()).slice(1); // remove header row
-    return rows.map((r) => r._rawData[1]).filter(r => r !== '')
+    return [...new Set(rows.map((r) => r._rawData[1]).filter(r => r !== ''))] as string[]
   };
 
   const getPlayers = async (ac: AbortController) => {

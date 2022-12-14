@@ -15,6 +15,7 @@
     "types": ["node"],
     "typeRoots": ["./node_modules/@types", "./types"],
     "baseUrl": ".",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "downlevelIteration": true
   }
 }
