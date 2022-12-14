@@ -16,7 +16,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col items-center h-screen p-8">
-      <h1 className="text-3xl m-4">
+      <h1 className="text-3xl m-4 text-center">
         Colorado Ranked Slippi Leaderboard
       </h1>
       <div className="p-1"> Updated {updatedAt.fromNow()}</div>
