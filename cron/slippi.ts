@@ -55,8 +55,7 @@ export const getPlayerData = async (connectCode: string) => {
   return req.json();
 };
 
-// limit to 3 QPS
-const limiter = new RateLimiter({tokensPerInterval: 3, interval: 'second'})
+const limiter = new RateLimiter({tokensPerInterval: 1, interval: 'second'})
 
 export const getPlayerDataThrottled = async (connectCode: string) => {
   const remainingRequests = await limiter.removeTokens(1);
