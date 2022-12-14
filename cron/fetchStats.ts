@@ -20,6 +20,7 @@ const getPlayerConnectCodes = async (): Promise<string[]> => {
 
 const getPlayers = async () => {
   const codes = await getPlayerConnectCodes()
+  console.log(`Found ${codes.length} player codes`)
   const allData = codes.map(code => getPlayerDataThrottled(code))
   const results = await Promise.all(allData.map(p => p.catch(e => e)));
   const validResults = results.filter(result => !(result instanceof Error));
@@ -34,7 +35,7 @@ async function main() {
   console.log('Starting player fetch.');
   const players = await getPlayers();
   if(!players.length) {
-    console.log('Error fethcing player data. Terminating.')
+    console.log('Error fetching player data. Terminating.')
     return
   }
   console.log('Player fetch complete.');
