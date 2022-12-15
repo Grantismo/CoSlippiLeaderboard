@@ -28,10 +28,6 @@ export const getPlayerData = async (connectCode: string) => {
   }
 
   query AccountManagementPageQuery($cc: String!, $uid: String!) {
-      getUser(fbUid: $uid) {
-            ...userProfilePage
-            __typename
-          }
       getConnectCode(code: $cc) {
             user {
                     ...userProfilePage

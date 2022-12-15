@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from '../../Table';
 import { Player } from '../../../lib/player'
-//import playersOld from '../../../../cron/data/players-old.json';
+import playersOld from '../../../../cron/data/players-old.json';
 import playersNew from '../../../../cron/data/players-new.json';
 import timestamp from '../../../../cron/data/timestamp.json';
 import dayjs from 'dayjs'
@@ -14,11 +14,30 @@ const setCount = (player: Player) => {
     player.rankedNetplayProfile.losses;
 }
 
-export default function HomePage() {
-  // TODO(diff changes and show in the ui)
-  let players = playersNew;
+const sortAndPopulatePlayers = (players: Player[]) => {
   players = players.filter((p)=> setCount(p))
-    .concat(players.filter((p)=> !setCount(p)))
+    .concat(players.filter((p)=> !setCount(p)));
+  players.forEach((player: Player, i: number) => {
+    if(setCount(player) > 0) {
+      player.rankedNetplayProfile.rank = i + 1
+    }
+  })
+  return players
+}
+
+export default function HomePage() {
+
+  const rankedPlayersOld = sortAndPopulatePlayers(playersOld)
+  const oldPlayersMap = new Map(
+    rankedPlayersOld.map((p) => [p.connectCode.code, p]));
+  
+  const players = sortAndPopulatePlayers(playersNew);
+  players.forEach((p) => {
+    const oldData = oldPlayersMap.get(p.connectCode.code)
+    if(oldData) {
+      p.oldRankedNetplayProfile = oldData.rankedNetplayProfile
+    }
+  })
 
   // continuously update
   const updatedAt = dayjs(timestamp.updated);

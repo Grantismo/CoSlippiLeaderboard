@@ -26,7 +26,7 @@ export function Table({ players }: Props) {
       </thead>
       {players.length > 0 &&
         <tbody>
-          {players.map((p: Player, index: number) => <Row key={p.displayName} rank={index + 1} player={p} />)}
+          {players.map((p: Player, index: number) => <Row key={p.displayName} player={p} />)}
         </tbody>
       }
     </table>

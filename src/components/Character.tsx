@@ -1,3 +1,6 @@
+import React from 'react';
+import * as ReactDOM from 'react-dom'; // needed by tooltip
+
 import { CharacterStats } from '../lib/player';
 import BowserIcon from '../../images/characters/bowser_default.png';
 import DkIcon from '../../images/characters/dk_default.png';
