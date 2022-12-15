@@ -28,9 +28,12 @@ import ZeldaIcon from '../../images/characters/zelda_default.png';
 import UnknownIcon from '../../images/characters/unknown.png';
 
 import { CircularProgressbarWithChildren, buildStyles  } from 'react-circular-progressbar';
+import { Tooltip } from 'react-tooltip';
 import 'react-circular-progressbar/dist/styles.css';
+import 'react-tooltip/dist/react-tooltip.css'
 
 interface Props {
+  id: string,
   totalGames: number,
   stats: CharacterStats,
 }
@@ -64,16 +67,23 @@ const characterNameToIcon = new Map([
   ['ZELDA', ZeldaIcon]
 ]);
 
-export function Character({ totalGames, stats }: Props) {
+export function Character({ id, totalGames, stats }: Props) {
   const icon = characterNameToIcon.get(stats.character) ?? UnknownIcon
   const percentage = 100*(stats.gameCount / totalGames)
-  return <div className="p-0.5"><CircularProgressbarWithChildren className="md:h-12 md:w-12 h-4 w-4"
-    value={percentage}
-    styles={buildStyles({
-      strokeLinecap: 'butt',
-			pathColor: 'rgb(22 163 74)'
-    })}>
-    <img className="md:h-8 md:w-8 h-3 w-3" src={icon} />
-  </CircularProgressbarWithChildren>
+  const charId = stats.character + id
+  const percentString = `${Number(percentage.toFixed(2))}%`
+  return (<>
+  <div className="p-0.5" id={charId} data-tooltip-content={percentString}>
+    <CircularProgressbarWithChildren 
+      className="md:h-12 md:w-12 h-4 w-4"
+      value={percentage}
+      styles={buildStyles({
+        strokeLinecap: 'butt',
+	  		pathColor: 'rgb(22 163 74)'
+      })}>
+      <img className="md:h-8 md:w-8 h-3 w-3" src={icon} />
+    </CircularProgressbarWithChildren>
   </div>
+  <Tooltip anchorId={charId} />
+  </>)
 }

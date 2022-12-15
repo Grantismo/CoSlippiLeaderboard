@@ -38,6 +38,7 @@ export default function HomePage() {
       </h1>
       <div className="p-1 text-gray-300"> Updated {updateDesc}</div>
       <Table players={players} />
+      <div className="p-4 text-gray-300">Built by blorppppp</div>
     </div>
   );
 }

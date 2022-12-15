@@ -10,9 +10,13 @@ interface Props {
 
 export function Row({ rank, player }: Props) {
 
-  const codeToUrlSlug = (code: string) => {
+  const codeToId = (code: string) => {
     const parts = code.split('#')
-    return `https://slippi.gg/user/${parts[0].toLowerCase()}-${parts[1]}`
+    return `${parts[0].toLowerCase()}-${parts[1]}`
+  }
+
+  const codeToUrlSlug = (code: string) => {
+    return `https://slippi.gg/user/${codeToId(code)}` 
   }
 
   const playerRank = getRank(player)
@@ -20,17 +24,13 @@ export function Row({ rank, player }: Props) {
   const totalSets = player.rankedNetplayProfile.wins + player.rankedNetplayProfile.losses
   const totalGames = player.rankedNetplayProfile.characters.reduce((acc, val)=> acc + val.gameCount, 0)
 
-  const onProfileClick = () => {
-    window.open(codeToUrlSlug(player.connectCode.code), '_blank', 'noreferrer');
-  }
   return (
-    <tr className={`${playerRank.bgClass} border-separate border-spacing-2 border-b-2 border-gray-600 hover:bg-indigo-900`}
-      onClick={onProfileClick}>
+    <tr className={`${playerRank.bgClass} border-separate border-spacing-2 border-b-2 border-gray-600`} >
       <td className="md:text-2xl text-gray-300 md:px-6 md:py-4 md:p-1 whitespace-nowrap">
         {isActive && `#${rank}`}
       </td>
       <td className="text-gray-100 md:px-6 md:py-4 p-1 whitespace-nowrap text-center overflow-hidden md:max-w-full max-w-[7rem] text-elipses">
-        <div className="md:text-xl text-sm max-w-xs text-gray-300">{player.displayName}</div>
+        <a className="md:text-xl text-sm max-w-xs text-gray-300 hover:text-gray-500 hover:underline" href={codeToUrlSlug(player.connectCode.code)}>{player.displayName}</a>
         <div className="text-gray-300 text-xs">{player.connectCode.code}</div>
       </td>
       <td className="md:text-xl text-sm text-gray-900 md:px-6 md:py-4 p-1 whitespace-nowrap text-center">
@@ -47,7 +47,7 @@ export function Row({ rank, player }: Props) {
       </td>
       <td className="md:text-sm text-xs text-gray-300 md:px-6 md:py-4 py-1  md:max-w-[15rem] max-w-[3rem]">
         <div className="flex flex-wrap items-center justify-center">
-        {player.rankedNetplayProfile.characters.map((c) => <Character key={c.character} totalGames={totalGames} stats={c}/>)}
+        {player.rankedNetplayProfile.characters.map((c) => <Character id={codeToId(player.connectCode.code)} key={c.character} totalGames={totalGames} stats={c}/>)}
         </div>
       </td>
       <td className="md:text-xl text-gray-300 text-sm md:px-6 md:py-4 md:p-1 whitespace-nowrap">
