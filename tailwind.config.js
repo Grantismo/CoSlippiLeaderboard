@@ -4,5 +4,8 @@ module.exports = {
   theme: {
     extend: {},
   },
+  safelist: [
+    'bg-gray-600'
+  ],
   plugins: [],
 };
