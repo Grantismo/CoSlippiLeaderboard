@@ -27,7 +27,7 @@ export const getPlayerData = async (connectCode: string) => {
       __typename
   }
 
-  query AccountManagementPageQuery($cc: String!, $uid: String!) {
+  query AccountManagementPageQuery($cc: String!) {
       getConnectCode(code: $cc) {
             user {
                     ...userProfilePage
@@ -44,7 +44,7 @@ export const getPlayerData = async (connectCode: string) => {
     body: JSON.stringify({
       operationName: 'AccountManagementPageQuery',
       query,
-      variables: { cc: connectCode, uid: connectCode },
+      variables: { cc: connectCode },
     }),
     method: 'POST',
   });
