@@ -37,6 +37,7 @@ The leaderboard is built from two programs:
 - Follow directions in https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication?id=service-account to create a service account and credentials to read from the google sheet. Save your creds json file to `secrets/creds.json`
 - Change `spreadsheetID` in settings.js to your google sheet ID
 - Edit your crontab to run the cron job every 30 minutes. On linux `crontab -e`
+
 Example crontab:
 ```
 # m h  dom mon dow   command
@@ -50,7 +51,7 @@ Example crontab:
 - **title** – Base application title
 - **cname** – Adds CNAME file that allows to use custom domain names with gh-pages
 - **repoPath** – username.github.io/repoPath for react router to recognize gh-pages paths
-- **spreadsheetID** - ID for google sheet containing player connect codes. https://docs.google.com/spreadsheets/d/[YOUR ID]
+- **spreadsheetID** - ID for google sheet containing player connect codes. `https://docs.google.com/spreadsheets/d/[YOUR ID]`
 
 ## scripts
 
