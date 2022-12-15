@@ -1,23 +1,26 @@
 import { Row } from './Row';
 import { Player } from '../lib/player'
+import { useMediaQuery } from 'react-responsive'
 
 interface Props {
   players: Player[]
 }
 
 export function Table({ players }: Props) {
+  const isSm = useMediaQuery({ query: '(min-width: 640px)' })
+
   const th = (text) => {
-    return <th className="text-sm font-medium text-white md:px-6 md:py-4 px-3 py-3">{text}</th>
+    return <th className="text-xs md:text-sm font-medium text-white md:px-6 md:py-4 px-3 py-3">{text}</th>
   }
   return (
     <>
-    <table className="table-auto text-center">
+    <table className="table-fixed text-center">
       <thead className="bg-gray-800">
         <tr>
           {th('Rank')}
           {th('Player')}
           {th('Rating')}
-          {th('Characters')}
+          {th(isSm ? 'Characters': 'Char')}
           {th('W/L')}
         </tr>
       </thead>

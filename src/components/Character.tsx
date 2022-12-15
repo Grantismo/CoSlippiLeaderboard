@@ -67,12 +67,13 @@ const characterNameToIcon = new Map([
 export function Character({ totalGames, stats }: Props) {
   const icon = characterNameToIcon.get(stats.character) ?? UnknownIcon
   const percentage = 100*(stats.gameCount / totalGames)
-  return <CircularProgressbarWithChildren className="p-1 h-12 w-12"
+  return <div className="p-0.5"><CircularProgressbarWithChildren className="md:h-12 md:w-12 h-4 w-4"
     value={percentage}
     styles={buildStyles({
       strokeLinecap: 'butt',
 			pathColor: 'rgb(22 163 74)'
     })}>
-    <img className="h-8 w-8" src={icon} />
-  </CircularProgressbarWithChildren>;
+    <img className="md:h-8 md:w-8 h-3 w-3" src={icon} />
+  </CircularProgressbarWithChildren>
+  </div>
 }
