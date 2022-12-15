@@ -19,7 +19,7 @@ export function Row({ player }: Props) {
   }
 
   const changeIndicator = (change: number, indicators: string[]) => {
-    return <span className={`px-1 md:text-sm text-xs ${rankChange > 0 ? 'text-green-500': 'text-red-500'}`}>
+    return <span className={`px-1 md:text-sm text-xs ${change > 0 ? 'text-green-500': 'text-red-500'}`}>
      {change > 0? indicators[0]: indicators[1]}{Math.abs(change)}
    </span>
   }
