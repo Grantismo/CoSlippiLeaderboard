@@ -1,5 +1,6 @@
 import React from 'react';
-import { Player } from './player'
+import { Player } from '../lib/player'
+import { getRank } from '../lib/ranks'
 
 interface Props {
   rank: number,
@@ -12,6 +13,8 @@ export function Row({ rank, player }: Props) {
     const parts = code.split('#')
     return `https://slippi.gg/user/${parts[0].toLowerCase()}-${parts[1]}`
   }
+
+  const playerRank = getRank(player)
 
   const onProfileClick = () => {
     window.open(codeToUrlSlug(player.connectCode.code), '_blank', 'noreferrer');
@@ -26,8 +29,17 @@ export function Row({ rank, player }: Props) {
         <div className="md:text-xl text-sm max-w-xs text-gray-900 ">{player.displayName}</div>
         <div className="text-gray-700 text-xs">{player.connectCode.code}</div>
       </td>
-      <td className="md:text-xl text-sm text-gray-900 md:px-6 md:py-4 p-1 whitespace-nowrap">
+      <td className="md:text-xl text-sm text-gray-900 md:px-6 md:py-4 p-1 whitespace-nowrap text-center">
+
+        {playerRank.iconUrl && <div className="flex items-center justify-center">
+          <img className="h-10 w-10" src={playerRank.iconUrl} />
+        </div>}
+        <div className="md:text-lg text-sm max-w-xs text-gray-900 uppercase">
+          {playerRank.name}
+        </div>
+        <div className="text-gray-700 md:text-sm">
         {Math.floor(player.rankedNetplayProfile.ratingOrdinal)}
+        </div>
       </td>
       <td className="md:text-sm text-xs md:max-w-full max-w-[5rem] text-gray-900 md:px-6 md:py-4 p-1">
         {player.rankedNetplayProfile.characters.map((c) => c.character.replace('_', ' ')).join(', ')}

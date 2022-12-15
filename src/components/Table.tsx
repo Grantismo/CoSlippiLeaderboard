@@ -1,5 +1,5 @@
 import { Row } from './Row';
-import { Player } from './player';
+import { Player } from '../lib/player'
 
 interface Props {
   players: Player[]

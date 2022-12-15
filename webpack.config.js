@@ -12,8 +12,8 @@ const output = path.join(__dirname, './dist');
 const publicPath = mode === 'production' ? settings.repoPath || '/' : '/';
 
 module.exports = {
-  mode,
 
+  mode,
   optimization: {
     minimizer: [new TerserJSPlugin({})],
     runtimeChunk: 'single',
@@ -60,10 +60,9 @@ module.exports = {
         include: path.join(__dirname, './src'),
         use: 'ts-loader',
       },
-
       {
         test: /\.(svg|png|jpg|gif|woff|woff2|otf|ttf|eot)$/,
-        loader: 'file-loader',
+        type: 'asset/resource',
       },
       {
         test: /\.css$/i,
