@@ -51,7 +51,7 @@ export function Row({ rank, player }: Props) {
         </div>
       </td>
       <td className="md:text-xl text-gray-300 text-sm md:px-6 md:py-4 md:p-1 whitespace-nowrap">
-        {totalGames && <><span className="text-green-500">{player.rankedNetplayProfile.wins ?? 0}</span><span className="md:p-1">/</span>
+        {Boolean(totalGames) && <><span className="text-green-500">{player.rankedNetplayProfile.wins ?? 0}</span><span className="md:p-1">/</span>
         <span className="text-red-500">{player.rankedNetplayProfile.losses ?? 0}</span>
       </>}
       </td>
