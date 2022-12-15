@@ -1,6 +1,7 @@
 import React from 'react';
 import { Player } from '../lib/player'
 import { getRank } from '../lib/ranks'
+import { Character } from './Character'
 
 interface Props {
   rank: number,
@@ -16,6 +17,8 @@ export function Row({ rank, player }: Props) {
 
   const playerRank = getRank(player)
   const isActive = playerRank.name !== 'None';
+  const totalSets = player.rankedNetplayProfile.wins + player.rankedNetplayProfile.losses
+  const totalGames = player.rankedNetplayProfile.characters.reduce((acc, val)=> acc + val.gameCount, 0)
 
   const onProfileClick = () => {
     window.open(codeToUrlSlug(player.connectCode.code), '_blank', 'noreferrer');
@@ -42,11 +45,13 @@ export function Row({ rank, player }: Props) {
           {isActive && Math.floor(player.rankedNetplayProfile.ratingOrdinal)}
         </div>
       </td>
-      <td className="md:text-sm text-xs md:max-w-full max-w-[5rem] text-gray-300 md:px-6 md:py-4 p-1">
-        {player.rankedNetplayProfile.characters.map((c) => c.character.replace('_', ' ')).join(', ')}
+      <td className="md:text-sm text-xs md:max-w-[15rem] max-w-[5rem] text-gray-300 md:px-6 md:py-4 p-1 ">
+        <div className="flex flex-wrap items-center justify-center">
+        {player.rankedNetplayProfile.characters.map((c) => <Character key={c.character} totalGames={totalGames} stats={c}/>)}
+        </div>
       </td>
       <td className="md:text-xl text-gray-300 text-sm md:px-6 md:py-4 p-1 whitespace-nowrap">
-        {(player.rankedNetplayProfile.wins || player.rankedNetplayProfile.losses) && <><span className="text-green-500">{player.rankedNetplayProfile.wins ?? 0}</span><span className="md:p-1">/</span>
+        {totalGames && <><span className="text-green-500">{player.rankedNetplayProfile.wins ?? 0}</span><span className="md:p-1">/</span>
         <span className="text-red-500">{player.rankedNetplayProfile.losses ?? 0}</span>
       </>}
       </td>

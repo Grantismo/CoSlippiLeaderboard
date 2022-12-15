@@ -1,22 +1,22 @@
 import { Player } from './player'
-import GrandMasterIcon from '../../images/GrandMaster.svg';
-import Diamond1Icon from '../../images/DiamondI.svg';
-import Diamond2Icon from '../../images/DiamondII.svg';
-import Diamond3Icon from '../../images/DiamondIII.svg';
-import Platinum3Icon from '../../images/PlatinumIII.svg';
-import Platinum2Icon from '../../images/PlatinumII.svg';
-import Platinum1Icon from '../../images/PlatinumI.svg';
-import Gold3Icon from '../../images/GoldIII.svg';
-import Gold2Icon from '../../images/GoldII.svg';
-import Gold1Icon from '../../images/GoldI.svg';
-import Silver3Icon from '../../images/SilverIII.svg';
-import Silver2Icon from '../../images/SilverII.svg';
-import Silver1Icon from '../../images/SilverI.svg';
-import Bronze3Icon from '../../images/BronzeIII.svg';
-import Bronze2Icon from '../../images/BronzeII.svg';
-import Bronze1Icon from '../../images/BronzeI.svg';
-import NoneIcon from '../../images/None.svg';
-import PendingIcon from '../../images/Pending.svg';
+import GrandMasterIcon from '../../images/ranks/GrandMaster.svg';
+import Diamond1Icon from '../../images/ranks/DiamondI.svg';
+import Diamond2Icon from '../../images/ranks/DiamondII.svg';
+import Diamond3Icon from '../../images/ranks/DiamondIII.svg';
+import Platinum3Icon from '../../images/ranks/PlatinumIII.svg';
+import Platinum2Icon from '../../images/ranks/PlatinumII.svg';
+import Platinum1Icon from '../../images/ranks/PlatinumI.svg';
+import Gold3Icon from '../../images/ranks/GoldIII.svg';
+import Gold2Icon from '../../images/ranks/GoldII.svg';
+import Gold1Icon from '../../images/ranks/GoldI.svg';
+import Silver3Icon from '../../images/ranks/SilverIII.svg';
+import Silver2Icon from '../../images/ranks/SilverII.svg';
+import Silver1Icon from '../../images/ranks/SilverI.svg';
+import Bronze3Icon from '../../images/ranks/BronzeIII.svg';
+import Bronze2Icon from '../../images/ranks/BronzeII.svg';
+import Bronze1Icon from '../../images/ranks/BronzeI.svg';
+import NoneIcon from '../../images/ranks/None.svg';
+import PendingIcon from '../../images/ranks/Pending.svg';
 
 interface Rank {
   isRank(player: Player): boolean

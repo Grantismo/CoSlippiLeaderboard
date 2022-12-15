@@ -1,3 +1,8 @@
+export interface CharacterStats {
+  character: string;
+  gameCount: number;
+}
+
 export interface Player {
   displayName: string;
   connectCode: {
@@ -10,9 +15,6 @@ export interface Player {
     losses: number;
     dailyGlobalPlacement: number | null;
     dailyRegionalPlacement: number | null;
-    characters: {
-      character: string;
-      gameCount: number;
-    }[];
+    characters: CharacterStats[];
   };
 }
