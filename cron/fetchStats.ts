@@ -1,16 +1,17 @@
 import { getPlayerDataThrottled } from './slippi'
 import { GoogleSpreadsheet } from 'google-spreadsheet';
-import creds from '../secrets/co-melee-77b97a2696c1.json';
+import creds from '../secrets/creds.json';
 import * as syncFs from 'fs';
 import * as path from 'path';
 import util from 'util';
+import * as settings from '../settings'
 
 import { exec } from 'child_process';
 const fs = syncFs.promises;
 const execPromise = util.promisify(exec);
 
 const getPlayerConnectCodes = async (): Promise<string[]> => {
-  const doc = new GoogleSpreadsheet('1DPIFD0RUA3yjruregmFUbUJ7ccdOjVB2LBp0goHvL-A');
+  const doc = new GoogleSpreadsheet(settings.spreadsheetID);
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo(); // loads document properties and worksheets
   const sheet = doc.sheetsByIndex[0];
