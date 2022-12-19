@@ -66,7 +66,7 @@ export function Row({ player }: Props) {
       <td className="md:text-xl text-sm text-gray-900 md:px-6 md:py-4 p-1 whitespace-nowrap text-center">
 
         {playerRank.iconUrl && <div className="flex items-center justify-center">
-          <img className="md:h-10 md:w-10 h-6 w-6" src={playerRank.iconUrl} />
+          <img className="md:h-10 md:w-10 h-6 w-6 drop-shadow" src={playerRank.iconUrl} />
         </div>}
         <div className="md:text-lg text-xs max-w-xs text-gray-300 uppercase">
           {playerRank.name}
