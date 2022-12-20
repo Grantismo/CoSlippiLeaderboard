@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { Player } from '../lib/player'
 import { Character } from './Character'
+import { useMediaQuery } from 'react-responsive'
 
 interface Props {
   player: Player
@@ -11,6 +12,8 @@ interface Props {
 const CONDENSED_SIZE = 3;
 
 export function Characters({ player, totalGames }: Props) {
+  const isSm = useMediaQuery({ query: '(min-width: 640px)' })
+
   const [expand, setExpand] = useState(false);
 
   const codeToId = (code: string) => {
@@ -34,8 +37,9 @@ export function Characters({ player, totalGames }: Props) {
         <Character id={codeToId(player.connectCode.code)}
           key={c.character} totalGames={totalGames} stats={c}/>)}
     {characters.length > CONDENSED_SIZE &&
-    <div className="mx-1 rounded-full border-gray-300 border-2 border-dashed md:h-12 md:w-12 h-4 w-4 text-xs flex flex-col items-center justify-center hover:border-solid hover:text-gray-500 hover:border-gray-500" onClick={expandChracters} >
-      <div>+{characters.length - CONDENSED_SIZE}</div><div>more</div>
+    <div className="md:mx-1 rounded-full border-gray-300 md:border-2 border border-dashed md:h-12 md:w-12 h-4 w-4 text-xs flex flex-col items-center justify-center hover:border-solid hover:text-gray-500 hover:border-gray-500" onClick={expandChracters} >
+      {isSm && <><div>+{characters.length - CONDENSED_SIZE}</div><div>more</div></>}
+      {!isSm && '+'}
     </div>}
     </>
   };
@@ -47,8 +51,9 @@ export function Characters({ player, totalGames }: Props) {
     <Character id={codeToId(player.connectCode.code)}
       key={c.character} totalGames={totalGames} stats={c}/>)}
     {shouldCondense &&
-    <div className="mx-1 rounded-full border-gray-300 border-2 border-dashed md:h-12 md:w-12 h-4 w-4 text-xs flex flex-col items-center justify-center hover:border-solid hover:text-gray-500 hover:border-gray-500" onClick={condenseCharacters} >
-      Hide
+    <div className="md:mx-1 rounded-full border-gray-300 md:border-2 border border-dashed md:h-12 md:w-12 h-4 w-4 text-xs flex flex-col items-center justify-center hover:border-solid hover:text-gray-500 hover:border-gray-500" onClick={condenseCharacters} >
+      {isSm && 'Hide'}
+      {!isSm && '-'}
     </div>}
     </>
   }
