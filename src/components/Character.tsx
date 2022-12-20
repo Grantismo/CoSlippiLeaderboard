@@ -1,5 +1,6 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom'; // needed by tooltip
+import ReactDOMServer from 'react-dom/server';
 
 import { CharacterStats } from '../lib/player';
 import BowserIcon from '../../images/characters/bowser_default.png';
@@ -75,8 +76,16 @@ export function Character({ id, totalGames, stats }: Props) {
   const percentage = 100*(stats.gameCount / totalGames)
   const charId = stats.character + id
   const percentString = `${Number(percentage.toFixed(2))}%`
+  const tooltip = ReactDOMServer.renderToString(
+    <>
+      <div>
+        {stats.gameCount} {stats.gameCount > 1 ? 'games': 'game'}
+      </div>
+      <div>{percentString}</div>
+    </>
+  )
   return (<>
-  <div className="p-0.5" id={charId} data-tooltip-content={percentString}>
+  <div className="p-0.5" id={charId} data-tooltip-html={tooltip}>
     <CircularProgressbarWithChildren 
       className="md:h-12 md:w-12 h-4 w-4"
       value={percentage}
