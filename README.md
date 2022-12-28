@@ -50,7 +50,7 @@ The leaderboard is built from two programs:
 - Edit your crontab to run the cron job every 30 minutes. On linux `crontab -e`
 
 ### Test your cronjob
-- Create dummy initial data `echo '[]' >> cron/players-new.json`
+- Create dummy initial data `echo '[]' >> cron/data/players-new.json`
 - Run the job `./cron/run.sh`
 - A successful job should look like this: 
 
