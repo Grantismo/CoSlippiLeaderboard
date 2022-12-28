@@ -1,6 +1,8 @@
 import { Player } from './player'
 import GrandMasterIcon from '../../images/ranks/GrandMaster.svg';
 import Master1Icon from '../../images/ranks/MasterI.svg';
+import Master2Icon from '../../images/ranks/MasterII.svg';
+import Master3Icon from '../../images/ranks/MasterIII.svg';
 import Diamond1Icon from '../../images/ranks/DiamondI.svg';
 import Diamond2Icon from '../../images/ranks/DiamondII.svg';
 import Diamond3Icon from '../../images/ranks/DiamondIII.svg';
@@ -113,8 +115,8 @@ export const RANKS = [
   new StandardRank('Diamond II', 2073.67, 2136.27, BLUE_BG, Diamond2Icon),
   new StandardRank('Diamond III', 2136.28, 2191.74, BLUE_BG, Diamond3Icon),
   new StandardRank('Master I', 2191.75, 2274.99, INDIGO_BG, Master1Icon),
-  new StandardRank('Master II', 2275, 2350, INDIGO_BG),
-  new StandardRank('Master III', 2350, Infinity, INDIGO_BG),
+  new StandardRank('Master II', 2275, 2350, INDIGO_BG, Master2Icon),
+  new StandardRank('Master III', 2350, Infinity, INDIGO_BG, Master3Icon),
   new GrandMaster()
 ]
 
