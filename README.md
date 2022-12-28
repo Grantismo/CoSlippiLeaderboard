@@ -23,6 +23,7 @@ The leaderboard is built from two programs:
 * The undocumented slippi api this depends on may break at any time
 * This project takes extra consideration to avoid slamming the slippi servers with api calls, please be considerate of this.
 * Logic for determining ranks may become out of sync with the official slippi rank logic
+* I would appreciate if you keep my 'by me a coffee' link and give me credit for building this in your leaderboard.
 
 ## Getting started
 
