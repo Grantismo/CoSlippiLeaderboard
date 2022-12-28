@@ -83,7 +83,7 @@ class GrandMaster extends StandardRank {
       return false;
     }
     return player.rankedNetplayProfile.dailyGlobalPlacement !== null
-      && player.rankedNetplayProfile.dailyRegionalPlacement !== null;
+      || player.rankedNetplayProfile.dailyRegionalPlacement !== null;
   }
 }
 
