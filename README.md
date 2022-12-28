@@ -51,7 +51,9 @@ The leaderboard is built from two programs:
 ### Test your cronjob
 - Create dummy initial data `echo '[]' >> cron/players-new.json`
 - Run the job `./cron/run.sh`
-- A successful job should look like this: ![image](https://user-images.githubusercontent.com/911232/209762179-e3da2be2-48d4-4c2a-a40c-c5fb3f78a8e9.png)
+- A successful job should look like this: 
+
+![image](https://user-images.githubusercontent.com/911232/209762179-e3da2be2-48d4-4c2a-a40c-c5fb3f78a8e9.png)
 
 ### Test the web app
 - Run `npm start` and open http://localhost:8262/ in your browse.
