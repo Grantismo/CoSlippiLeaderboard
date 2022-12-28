@@ -50,7 +50,6 @@ async function main() {
   await fs.writeFile(newFile, JSON.stringify(players));
   await fs.writeFile(timestamp, JSON.stringify({updated: Date.now()}));
   console.log('Wrote new data file and timestamp.');
-  console.log('Deploying.');
   const rootDir = path.normalize(path.join(__dirname, '..'))
   console.log(rootDir)
   // if no current git changes
@@ -59,6 +58,7 @@ async function main() {
     console.log('Pending git changes... aborting deploy');
     return
   }
+  console.log('Deploying.');
   const { stdout: stdout2, stderr: stderr2 } = await execPromise(`npm run --prefix ${rootDir} deploy`);
   console.log(stdout2);
   if(stderr2) {
