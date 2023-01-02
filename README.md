@@ -47,14 +47,20 @@ The leaderboard is built from two programs:
 - Modify `getPlayerConnectCodes` to supply the list directly (see https://github.com/costasford/NorcalSlippiLeaderboard/blob/master/cron/fetchStats.ts#L11-L13)
 - Delete `import { GoogleSpreadsheet } from 'google-spreadsheet';` and `import creds from '../secrets/creds.json';` from `cron/fetchStats.ts`
 
-- Edit your crontab to run the cron job every 30 minutes. On linux `crontab -e`
-
 ### Test your cronjob
-- Create dummy initial data `echo '[]' >> cron/data/players-new.json`
+- Create dummy initial data 
+```
+mkdir cron/data
+echo '[]' >> cron/data/players-new.json
+mkdir cron/logs
+touch cron/logs/log.txt
+```
 - Run the job `./cron/run.sh`
 - A successful job should look like this: 
 
 ![image](https://user-images.githubusercontent.com/911232/209762179-e3da2be2-48d4-4c2a-a40c-c5fb3f78a8e9.png)
+
+- A log file should be written at cron/logs/log.txt. You can watch the output as the cron runs with `tail -f cron/logs/log.txt`
 
 ### Test the web app
 - Run `npm start` and open http://localhost:8262/ in your browse.
@@ -63,15 +69,21 @@ The leaderboard is built from two programs:
 - Commit any remaining changes 
 - `git add .`
 - `git commit -m "Describe your commit here"`
-- Edit your crontab to run the cronjob on a reoccuring basis (every hour for example)
-Example crontab:
+-  Edit your crontab to run the cronjob on a reoccuring basis (every hour for example).On linux `crontab -e`:
+
 ```
 # m h  dom mon dow   command
-0 * * * * /bin/bash /full/path/to/your/code/CoSlippiLeaderboard/cron/run.sh
+0 * * * * /full/path/to/your/code/CoSlippiLeaderboard/cron/run.sh
 ```
 - You can look in cron/logs/log.txt to see the output of the latest cron run.
 - That's it!
 - DM me on discord if you run into problems. blorppppp#2398
+
+### Common issues:
+- The cron server isn't started. `sudo service cron status`
+  - On Windows WSL: https://www.howtogeek.com/746532/how-to-launch-cron-automatically-in-wsl-on-windows-10-and-11/
+- `/bin/sh: 1: npm: not found`, npm is not in the path when running the cron job.
+  - Add your PATH manually to `cron/run.sh`. See https://stackoverflow.com/a/14612507
 
 ## Settings
 
