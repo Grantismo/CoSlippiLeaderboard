@@ -84,6 +84,10 @@ touch cron/logs/log.txt
   - On Windows WSL: https://www.howtogeek.com/746532/how-to-launch-cron-automatically-in-wsl-on-windows-10-and-11/
 - `/bin/sh: 1: npm: not found`, npm is not in the path when running the cron job.
   - Add your PATH manually to `cron/run.sh`. See https://stackoverflow.com/a/14612507
+- Your deployed site looks like this README. Your github pages configuration needs updating.
+  - Correct github page settings should look like this:
+  ![image](https://user-images.githubusercontent.com/911232/210273059-7a47d009-71d0-4dec-aea2-b93e115c86fd.png)
+
 
 ## Settings
 
