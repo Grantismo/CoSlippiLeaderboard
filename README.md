@@ -16,7 +16,7 @@ Fork of [reacts-pages-boilerplate](https://github.com/rtivital/react-pages-boile
 
 The leaderboard is built from two programs:
 * [[src/](https://github.com/Grantismo/CoSlippiLeaderboard/tree/master/src)] A static react website which displays player data 
-* [[cron/](https://github.com/Grantismo/CoSlippiLeaderboard/tree/master/cron)] A cron job which pulls connect codes from a google sheet, player data from slippi, and writes that data to json files in `cron/data/`, and then redeploys the static site.
+* [[cron/](https://github.com/Grantismo/CoSlippiLeaderboard/tree/master/cron)] A cron job which pulls connect codes from a google sheet, player data from slippi, and writes that data to json files in `cron/data/`, and then redeploys the static site (and automatically configures github pages for you on the first deploy).
 
 ## Caveats
 
@@ -27,7 +27,7 @@ The leaderboard is built from two programs:
 
 ## Getting started
 
-- Easiest to get working on a unix system (linux/mac). On windows you can use WSL to install ubuntu. https://learn.microsoft.com/en-us/windows/wsl/install
+- Easiest to get working on a unix system (linux/mac). On windows you can use WSL to install ubuntu. https://learn.microsoft.com/en-us/windows/wsl/install 
 - Clone this repository: `git clone https://github.com/Grantismo/CoSlippiLeaderboard.git` 
 - (Optional) Install NVM -- instructions [here](https://github.com/creationix/nvm)
 - (Optional) Run `nvm use 18.12.0`. This will ensure that you are running the supported version of Node.js.
@@ -69,7 +69,7 @@ touch cron/logs/log.txt
 - Commit any remaining changes 
 - `git add .`
 - `git commit -m "Describe your commit here"`
--  Edit your crontab to run the cronjob on a reoccuring basis (every hour for example).On linux `crontab -e`:
+-  Edit your crontab to run the cronjob on a reoccuring basis (every hour for example). On linux `crontab -e`:
 
 ```
 # m h  dom mon dow   command
