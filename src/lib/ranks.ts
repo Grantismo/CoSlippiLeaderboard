@@ -70,7 +70,7 @@ class StandardRank implements Rank {
     if(setCount(player) < MIN_RANK_SETS) {
       return false
     }
-    const rating = player.rankedNetplayProfile.ratingOrdinal;
+    const rating = Math.round(100 * player.rankedNetplayProfile.ratingOrdinal) / 100; // round to nearest 100th place
     return this.lowerBound <= rating && rating <= this.upperBound;
   }
 }
