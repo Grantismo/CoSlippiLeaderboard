@@ -28,6 +28,13 @@ interface Rank {
   iconUrl?: string
 }
 
+const setCount = (player: Player) => {
+  return player.rankedNetplayProfile.wins +
+    player.rankedNetplayProfile.losses;
+}
+
+const MIN_RANK_SETS = 5;
+
 class NoneRank implements Rank {
   public name = "None"
   public iconUrl = NoneIcon
@@ -38,12 +45,6 @@ class NoneRank implements Rank {
   }
 }
 
-const setCount = (player: Player) => {
-  return player.rankedNetplayProfile.wins +
-    player.rankedNetplayProfile.losses;
-}
-
-const MIN_RANK_SETS = 5;
 
 class PendingRank implements Rank {
   public name = "Pending"
