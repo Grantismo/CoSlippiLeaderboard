@@ -50,7 +50,7 @@ export function Row({ player }: Props) {
   const playerRank = getRank(player);
   const isActive = playerRank.name !== 'None';
   const totalSets = player.rankedNetplayProfile.wins + player.rankedNetplayProfile.losses;
-  const totalGames = player.rankedNetplayProfile.characters.reduce((acc, val)=> acc + val.gameCount, 0);
+  const totalGames = (player.rankedNetplayProfile.characters || []).reduce((acc, val)=> acc + val.gameCount, 0);
   const rankChange = getRankChange(player);
   const ratingChange = getRatingChange(player);
 
