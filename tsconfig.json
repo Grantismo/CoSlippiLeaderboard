@@ -1,7 +1,7 @@
 {
   "outDir": "./dist/",
   "plugins": [],
-  "include": ["./"],
+  "include": ["./**/*"],
   "exclude": ["dist"],
 
   "compilerOptions": {
