@@ -56,7 +56,7 @@ export default function HomePage() {
       <h1 className="text-3xl m-4 text-center text-white">
         {settings.title}
       </h1>
-      <a href="https://forms.gle/Kz4MYMAdEtJagyGR7" target="_blank">Register Connect Code</a>
+      <a href="https://forms.gle/Kz4MYMAdEtJagyGR7" target="_blank"><button id="register-button"><span  id="register-link">Register Connect Code</span></button></a>
       <div className="p-1 text-gray-300"> Updated {updateDesc}</div>
       <Table players={players} />
       <div className="p-4 text-gray-300 flex flex-col">
