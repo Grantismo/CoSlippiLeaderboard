@@ -21,7 +21,8 @@ export function Characters({ player, totalGames }: Props) {
     return `${parts[0].toLowerCase()}-${parts[1]}`;
   }
 
-  const characters = useMemo(() => player.rankedNetplayProfile.characters
+  const characters = useMemo(() => (
+    player.rankedNetplayProfile.characters || [])
     .sort((a, b)=> b.gameCount - a.gameCount), [player]);
 
   const expandChracters = () => {
