@@ -40,7 +40,7 @@ The leaderboard is built from two programs:
 ### If you want to collect connect codes from a google form
 - Create a google form to collect player tags from your region. ![image](https://user-images.githubusercontent.com/911232/207989907-256100e3-c215-4699-9ae7-655d5345cbd4.png)
 - Link your google form to a google sheet ![image](https://user-images.githubusercontent.com/911232/207990065-aadc0a30-2561-46b7-a46e-0742af601cec.png)
-- Follow directions in https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication?id=service-account to create a service account and credentials to read from the google sheet. Save your creds json file to `secrets/creds.json`
+- Follow directions in [https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication?id=service-account](https://theoephraim.github.io/node-google-spreadsheet/#/guides/authentication?id=service-account) to create a service account and credentials to read from the google sheet. Save your creds json file to `secrets/creds.json`
 - Change `spreadsheetID` in settings.js to your google sheet ID
 
 ### If you want to manually populate your list of connect codes:
