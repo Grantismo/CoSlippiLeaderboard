@@ -1,0 +1,20 @@
+name: Update slippi rankings
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '21.6.1'
+    - name: Install project dependencies
+      run: yarn install
+      shell: bash
+    - name: Run update
+      run: ./cron/run.sh
+      shell: bash
