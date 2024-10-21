@@ -23,6 +23,11 @@ jobs:
         ${{ secrets.GOOGLE_CREDS }}
         EOF
       shell: bash
+    - uses: actions/download-artifact@v4
+      continue-on-error: true
+      with:
+        name: player-data
+        path: cron/data/players-new.json
     - name: Run update
       run: |
         git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
@@ -30,3 +35,8 @@ jobs:
       shell: bash
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/upload-artifact@v4
+      with:
+        name: player-data
+        path: cron/data/players-new.json
+        overwrite: true
