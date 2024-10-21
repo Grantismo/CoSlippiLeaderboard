@@ -11,4 +11,4 @@ if [ ! -f cron/logs/log.txt ]; then
   touch cron/logs/log.txt
 fi
 
-node --loader ts-node/esm --no-warnings cron/fetchStats.ts 2>&1 | tee cron/logs/log.txt
+yarn ts-node cron/fetchStats.ts 2>&1 | tee cron/logs/log.txt
