@@ -24,5 +24,9 @@ jobs:
         EOF
       shell: bash
     - name: Run update
-      run: ./cron/run.sh
+      run: |
+        git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        ./cron/run.sh
       shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
