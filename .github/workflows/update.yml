@@ -3,7 +3,6 @@ name: Update slippi rankings
 on:
   schedule:
     - cron: "0 * * * *"
-  pull_request:
 
 jobs:
   update:
@@ -28,7 +27,7 @@ jobs:
       with:
         name: player-data
         path: cron/data/players-new.json
-    - name: Run update
+    - name: Load latest player data and deploy to github pages
       run: |
         git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
         ./cron/run.sh
