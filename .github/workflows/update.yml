@@ -3,6 +3,7 @@ name: Update slippi rankings
 on:
   schedule:
     - cron: "0 * * * *"
+  pull_request:
 
 jobs:
   update:
