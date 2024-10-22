@@ -27,6 +27,8 @@ jobs:
       with:
         name: player-data
         path: cron/data/players-new.json
+        run-id: ${{ github.event.workflow_run.id }}
+        github-token: ${{ github.token }}
     - name: Load latest player data and deploy to github pages
       run: |
         git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
@@ -39,3 +41,5 @@ jobs:
         name: player-data
         path: cron/data/players-new.json
         overwrite: true
+        run-id: ${{ github.event.workflow_run.id }}
+        github-token: ${{ github.token }}
