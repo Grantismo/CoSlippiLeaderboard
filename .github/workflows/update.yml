@@ -26,7 +26,10 @@ jobs:
     - name: Load secrets
       run: |
         mkdir -p ./secrets
-        echo "${{ secrets.GOOGLE_CREDS }}" > ./secrets/creds.json
+        cat << EOF > ./secrets/creds.json
+        ${{ secrets.GOOGLE_CREDS }}
+        EOF
+      shell: bash
 
     - name: Download player data from artifacts branch
       run: |
