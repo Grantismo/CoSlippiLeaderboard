@@ -9,37 +9,41 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+
+    - name: Set up Git
+      run: |
+        git config --global user.email "you@example.com"
+        git config --global user.name "GitHub Actions"
+
     - uses: actions/setup-node@v4
       with:
         node-version: '21.6.1'
+
     - name: Install project dependencies
       run: yarn install
-      shell: bash
+
     - name: Load secrets
       run: |
         mkdir -p ./secrets
-        cat << EOF > ./secrets/creds.json
-        ${{ secrets.GOOGLE_CREDS }}
-        EOF
-      shell: bash
-    - uses: actions/download-artifact@v4
-      continue-on-error: true
-      with:
-        name: player-data
-        path: cron/data/players-new.json
-        run-id: ${{ github.event.workflow_run.id }}
-        github-token: ${{ github.token }}
-    - name: Load latest player data and deploy to github pages
+        echo "${{ secrets.GOOGLE_CREDS }}" > ./secrets/creds.json
+
+    - name: Download player data from artifacts branch
       run: |
-        git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        mkdir -p cron/data
+        git fetch origin artifacts
+        git show origin/artifacts:players-new.json > cron/data/players-new.json || echo '{}' > cron/data/players-new.json
+
+    - name: Run ranking update and deploy
+      run: |
         ./cron/run.sh
-      shell: bash
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - uses: actions/upload-artifact@v4
-      with:
-        name: player-data
-        path: cron/data/players-new.json
-        overwrite: true
-        run-id: ${{ github.event.workflow_run.id }}
-        github-token: ${{ github.token }}
+
+    - name: Commit updated player data
+      run: |
+        git checkout --orphan artifacts-temp
+        git rm -rf .
+        cp cron/data/players-new.json .
+        git add players-new.json
+        git commit -m "Update player data"
+        git push -f origin HEAD:artifacts
