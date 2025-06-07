@@ -35,7 +35,8 @@ jobs:
       run: |
         mkdir -p cron/data
         git fetch origin artifacts
-        git show origin/artifacts:players-new.json > cron/data/players-new.json || echo '{}' > cron/data/players-new.json
+        git show origin/artifacts:players-old.json > cron/data/players-old.json || echo '{}' > cron/data/players-old.json
+        git show origin/artifacts:timestamp.json > cron/data/timestamp.json || echo '{}' > cron/data/timestamp.json
 
     - name: Run ranking update and deploy
       run: |
@@ -44,10 +45,11 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Commit updated player data
-      run: |
+      run: :
         git checkout --orphan artifacts-temp
         git rm -rf .
-        cp cron/data/players-new.json .
-        git add players-new.json
+        cp cron/data/players-new.json players-old.json
+        cp cron/data/timestamp.json timestamp.json
+        git add players-old.json
         git commit -m "Update player data"
         git push -f origin HEAD:artifacts
