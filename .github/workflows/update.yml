@@ -45,7 +45,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Commit updated player data
-      run: :
+      run: |
         git checkout --orphan artifacts-temp
         git rm -rf .
         cp cron/data/players-new.json players-old.json
