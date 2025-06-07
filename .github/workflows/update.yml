@@ -12,7 +12,7 @@ jobs:
 
     - name: Set up Git
       run: |
-        git config --global user.email "you@example.com"
+        git config --global user.email "grant.warman@gmail.com"
         git config --global user.name "GitHub Actions"
 
     - uses: actions/setup-node@v4
