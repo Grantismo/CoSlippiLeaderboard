@@ -35,7 +35,6 @@ const getPlayers = async () => {
 async function main() {
   console.log('Starting player fetch.');
   const players = await getPlayers();
-  console.log(`fetched players: ${players}`)
   if(!players.length) {
     console.log('Error fetching player data. Terminating.')
     return

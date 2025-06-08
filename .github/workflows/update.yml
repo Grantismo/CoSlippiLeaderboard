@@ -13,8 +13,10 @@ jobs:
 
     - name: Set up Git
       run: |
-        git config --global user.email "grant.warman@gmail.com"
-        git config --global user.name "GitHub Actions"
+        git --version
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
     - uses: actions/setup-node@v4
       with:
