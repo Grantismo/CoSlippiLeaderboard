@@ -1,55 +1,52 @@
 import { RateLimiter } from "limiter"
 
 export const getPlayerData = async (connectCode: string) => {
-  const query = `fragment profileFieldsV2 on NetplayProfileV2 {
-    id
-    ratingOrdinal
-    ratingUpdateCount
-    wins
-    losses
-    dailyGlobalPlacement
-    dailyRegionalPlacement
-    continent
-    characters {
-      character
-      gameCount
-      __typename
-    }
+  const query = `fragment profileFields on NetplayProfile {
+  id
+  ratingOrdinal
+  ratingUpdateCount
+  wins
+  losses
+  dailyGlobalPlacement
+  dailyRegionalPlacement
+  continent
+  characters {
+    character
+    gameCount
     __typename
   }
+  __typename
+}
 
-  fragment userProfilePage on User {
-    fbUid
-    displayName
-    connectCode {
-      code
-      __typename
-    }
-    rankedNetplayProfile {
-      ...profileFieldsV2
-      __typename
-    }
+fragment userProfilePage on User {
+  fbUid
+  displayName
+  connectCode {
+    code
     __typename
   }
-    
-  query AccountManagementPageQuery($cc: String!) {
-    getConnectCode(code: $cc) {
-      user {
-        ...userProfilePage
-        __typename
-      }
-      __typename
-    }
-  }`;
+  rankedNetplayProfile {
+    ...profileFields
+    __typename
+  }
+  __typename
+}
 
-  const req = await fetch('https://gql-gateway-2-dot-slippi.uc.r.appspot.com/graphql', {
+query UserProfilePageQuery($cc: String, $uid: String) {
+  getUser(fbUid: $uid, connectCode: $cc) {
+    ...userProfilePage
+    __typename
+  }
+}`;
+
+  const req = await fetch('https://internal.slippi.gg/graphql', {
     headers: {
       'content-type': 'application/json',
     },
     body: JSON.stringify({
-      operationName: 'AccountManagementPageQuery',
+      operationName: 'UserProfilePageQuery',
       query,
-      variables: { cc: connectCode },
+      variables: { cc: connectCode, uid: connectCode },
     }),
     method: 'POST',
   });

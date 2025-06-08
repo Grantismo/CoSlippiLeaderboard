@@ -13,4 +13,4 @@ if [ ! -f cron/logs/log.txt ]; then
 fi
 
 yarn ts-node cron/fetchStats.ts 2>&1 | tee cron/logs/log.txt
-yarn run deploy -- -u "github-actions-bot <support+actions@github.com>"
+#yarn run deploy -- -u "github-actions-bot <support+actions@github.com>"
